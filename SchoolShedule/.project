@@ -14,16 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>lib/odfdom-java-0.8.7.jar</name>
-			<type>1</type>
-			<location>/home/kosyo/Downloads/odfdom-java-0.8.7.jar</location>
-		</link>
-		<link>
-			<name>lib/xercesImpl.jar</name>
-			<type>1</type>
-			<location>/home/kosyo/Downloads/xerces-2_8_0/xercesImpl.jar</location>
-		</link>
-	</linkedResources>
 </projectDescription>
