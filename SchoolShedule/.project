@@ -16,14 +16,19 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>lib/jxl-2.6.jar</name>
+			<type>1</type>
+			<location>/home/kosyo/Downloads/jxl-2.6.jar</location>
+		</link>
+		<link>
 			<name>lib/odfdom-java-0.8.7.jar</name>
 			<type>1</type>
-			<location>/home/stefi/Downloads/SchoolShedule/lib/odfdom-java-0.8.7.jar</location>
+			<location>/home/kosyo/Downloads/odfdom-java-0.8.7.jar</location>
 		</link>
 		<link>
 			<name>lib/xercesImpl.jar</name>
 			<type>1</type>
-			<location>/home/stefi/Downloads/SchoolShedule/lib/xercesImpl.jar</location>
+			<location>/home/kosyo/Downloads/xerces-2_8_0/xercesImpl.jar</location>
 		</link>
 	</linkedResources>
 </projectDescription>
