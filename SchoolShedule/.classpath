@@ -2,11 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="lib/odfdom-java-0.8.7.jar"/>
-	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="/home/kosyo/Desktop/jexcel-1.5.jar"/>
-	<classpathentry kind="lib" path="lib/jxl-2.6.jar"/>
-	<classpathentry kind="con" path="com.google.gdt.eclipse.managedapis.MANAGED_API_CONTAINER/gdata-spreadsheet-2.1"/>
-	<classpathentry exported="true" kind="lib" path="/home/kosyo/Downloads/gdata/java/lib/gdata-client-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-core-1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="lib/derby.jar"/>
+	<classpathentry kind="lib" path="lib/derbyclient.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-client-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-spreadsheet-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-spreadsheet-meta-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/google-collect-1.0-rc1.jar"/>
+	<classpathentry kind="lib" path="lib/jsr305.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
