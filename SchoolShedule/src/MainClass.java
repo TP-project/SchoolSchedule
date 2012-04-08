@@ -11,7 +11,7 @@ import com.google.gdata.util.ServiceException;
 			Spreadsheet sp = new Spreadsheet();
 			try {
 				System.out.println("logging....");
-				sp.login("kosyokk", "I'm15number");
+				sp.login("kosyokk", "test");
 				sp.loadSheet(0);
 				Cell c= new Cell(3,4);
 				//sp.removeCellErrorValue(c);
