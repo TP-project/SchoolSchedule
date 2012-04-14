@@ -7,7 +7,8 @@ import org.elsys.Database.TeacherTable;
 
 		public static void main(String[] args) {
 			TeacherTable table=new TeacherTable();
-			table.insert("name5");
+//			table.create();
+			table.insert("name5","sh");
 //			table.insert("name2");
 //			table.insert("name3");
 			ArrayList<String> names=table.selectName();
