@@ -29,8 +29,8 @@ public class SubjectTable extends Database{
 	public void insert(String subject) {
 		try {
 			stmt = conn.createStatement();
-			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+1;
-			stmt.execute("insert into " + tableName + " values (" + ++id + ",'" + subject+"')");
+			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+2;
+			stmt.execute("insert into " + tableName + " values (" + id + ",'" + subject+"')");
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -29,8 +29,8 @@ public class RoomTable extends Database{
 	public void insert(String roomNumber) {
 		try {
 			stmt = conn.createStatement();
-			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+1;
-			stmt.execute("insert into " + tableName + " values (" + ++id + ",'" + roomNumber+"')");
+			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+2;
+			stmt.execute("insert into " + tableName + " values (" + id + ",'" + roomNumber+"')");
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

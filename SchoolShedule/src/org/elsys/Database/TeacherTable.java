@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeacherTable extends Database{
-	private String tableName="Teacher2";
+	private String tableName="Teacher11";
 	public TeacherTable() {
 		createDatabaseConnection();
 	}
@@ -29,8 +29,8 @@ public class TeacherTable extends Database{
 	public void insert(String name, String shortName) {
 		try {
 			stmt = conn.createStatement();
-			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+1;
-			stmt.execute("insert into " + tableName + " values (" + ++id + ",'" + name+"','" + shortName + "')");
+			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+2;
+			stmt.execute("insert into " + tableName + " values (" + id + ",'" + name+"','" + shortName + "')");
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,7 +70,7 @@ public class TeacherTable extends Database{
 }
 
 
-	private ArrayList<Integer> selectID() {
+	public ArrayList<Integer> selectID() {
 		ArrayList<Integer> teacherID = new ArrayList<Integer>();
 		try {
 			ResultSet results = stmt.executeQuery("select * from " + tableName);
