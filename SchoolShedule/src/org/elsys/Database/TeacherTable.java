@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeacherTable extends Database{
-	private String tableName="Name";
+	private String tableName="Teacher2";
 	public TeacherTable() {
 		createDatabaseConnection();
 	}
@@ -18,22 +18,24 @@ public class TeacherTable extends Database{
 		try {
 			stmt = conn.createStatement();
 			stmt.execute("create table " + tableName
-					+ "(id int primary key,name varchar(12))");
+					+ "(id int primary key,name varchar(12),short_name varchar(5))");
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void insert(String name) {
-			try {
-				stmt = conn.createStatement();
-				stmt.execute("insert into " + tableName + " values (" + selectID().get(selectID().size()-1)+1 + ",'" + name+"')");
-				stmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-	}
+	
+	public void insert(String name, String shortName) {
+		try {
+			stmt = conn.createStatement();
+			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+1;
+			stmt.execute("insert into " + tableName + " values (" + ++id + ",'" + name+"','" + shortName + "')");
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+}
 
 	public ArrayList<String> selectName() {
 			ArrayList<String> teacherNames = new ArrayList<String>();
@@ -51,10 +53,26 @@ public class TeacherTable extends Database{
 			return teacherNames;
 	}
 	
-	public ArrayList<Integer> selectID() {
-		ArrayList<Integer> teacherID = new ArrayList<Integer>();
+	public ArrayList<String> selectShortName() {
+		ArrayList<String> teacherNames = new ArrayList<String>();
 		try {
 			stmt = conn.createStatement();
+			ResultSet results = stmt.executeQuery("select * from " + tableName);
+			while (results.next()) {
+				teacherNames.add(results.getString(3));
+			}
+			results.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return teacherNames;
+}
+
+
+	private ArrayList<Integer> selectID() {
+		ArrayList<Integer> teacherID = new ArrayList<Integer>();
+		try {
 			ResultSet results = stmt.executeQuery("select * from " + tableName);
 			while (results.next()) {
 			while(results.next()) {
@@ -62,7 +80,6 @@ public class TeacherTable extends Database{
 			}
 			}
 			results.close();
-			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
