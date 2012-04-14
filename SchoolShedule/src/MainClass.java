@@ -1,29 +1,16 @@
-import java.io.IOException;
+import java.util.ArrayList;
 
-import com.google.gdata.util.ServiceException;
-
+import org.elsys.Database.TeacherTable;
 
 	public class MainClass {
 
 
 		public static void main(String[] args) {
-
-			Spreadsheet sp = new Spreadsheet();
-			try {
-				System.out.println("logging....");
-				sp.login("kosyokk", "test");
-				sp.loadSheet(0);
-				Cell c= new Cell(3,4);
-				//sp.removeCellErrorValue(c);
-				//System.out.println(sp.getCellValue(c));
-				//ArrayList<Cell> cells=sp.search(2, 3, 1, 4, "kosyo"); 
-				
-					System.out.println(sp.getCellValue(c));
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ServiceException e) {
-				e.printStackTrace();
-			}
+			TeacherTable table=new TeacherTable();
+			table.insert("name5");
+//			table.insert("name2");
+//			table.insert("name3");
+			ArrayList<String> names=table.selectName();
+			System.out.println(names.size());
 		}
 	}
