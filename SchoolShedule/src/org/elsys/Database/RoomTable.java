@@ -41,9 +41,9 @@ public class RoomTable extends Database{
 			ArrayList<String> roomNumbers = new ArrayList<String>();
 			try {
 				stmt = conn.createStatement();
-				ResultSet results = stmt.executeQuery("select * from " + tableName);
+				ResultSet results = stmt.executeQuery("select name from " + tableName);
 				while (results.next()) {
-					roomNumbers.add(results.getString(2));
+					roomNumbers.add(results.getString(1));
 				}
 				results.close();
 				stmt.close();
@@ -56,7 +56,7 @@ public class RoomTable extends Database{
 	private ArrayList<Integer> selectID() {
 		ArrayList<Integer> ID = new ArrayList<Integer>();
 		try {
-			ResultSet results = stmt.executeQuery("select * from " + tableName);
+			ResultSet results = stmt.executeQuery("select id from " + tableName);
 			while (results.next()) {
 			while(results.next()) {
 				ID.add(results.getInt(1));

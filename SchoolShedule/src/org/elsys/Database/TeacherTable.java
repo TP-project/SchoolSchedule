@@ -41,9 +41,9 @@ public class TeacherTable extends Database{
 			ArrayList<String> teacherNames = new ArrayList<String>();
 			try {
 				stmt = conn.createStatement();
-				ResultSet results = stmt.executeQuery("select * from " + tableName);
+				ResultSet results = stmt.executeQuery("select name from " + tableName);
 				while (results.next()) {
-					teacherNames.add(results.getString(2));
+					teacherNames.add(results.getString(1));
 				}
 				results.close();
 				stmt.close();
@@ -57,9 +57,9 @@ public class TeacherTable extends Database{
 		ArrayList<String> teacherNames = new ArrayList<String>();
 		try {
 			stmt = conn.createStatement();
-			ResultSet results = stmt.executeQuery("select * from " + tableName);
+			ResultSet results = stmt.executeQuery("select short_name from " + tableName);
 			while (results.next()) {
-				teacherNames.add(results.getString(3));
+				teacherNames.add(results.getString(1));
 			}
 			results.close();
 			stmt.close();
@@ -69,11 +69,10 @@ public class TeacherTable extends Database{
 		return teacherNames;
 }
 
-
 	public ArrayList<Integer> selectID() {
 		ArrayList<Integer> teacherID = new ArrayList<Integer>();
 		try {
-			ResultSet results = stmt.executeQuery("select * from " + tableName);
+			ResultSet results = stmt.executeQuery("select id from " + tableName);
 			while (results.next()) {
 			while(results.next()) {
 				teacherID.add(results.getInt(1));
