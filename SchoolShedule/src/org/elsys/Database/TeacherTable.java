@@ -5,20 +5,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeacherTable extends Database{
-	private String tableName="Teacher11";
+	public static final String tableName="Teacher";
+	public static final String IDcolumn="id";
+	public static final String shortNameColumn="short_name";
+	public static final String nameColumn="name";
 	public TeacherTable() {
 		createDatabaseConnection();
 	}
 	
-	public TeacherTable(String tableName) {
-		this.tableName=tableName;
-		createDatabaseConnection();
-	}
 	public void create() {
 		try {
 			stmt = conn.createStatement();
 			stmt.execute("create table " + tableName
-					+ "(id int primary key,name varchar(12),short_name varchar(5))");
+					+ "(" + IDcolumn + " int primary key," + nameColumn + " varchar(12)," + shortNameColumn + " varchar(5))");
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -41,7 +40,7 @@ public class TeacherTable extends Database{
 			ArrayList<String> teacherNames = new ArrayList<String>();
 			try {
 				stmt = conn.createStatement();
-				ResultSet results = stmt.executeQuery("select name from " + tableName);
+				ResultSet results = stmt.executeQuery("select " + nameColumn + " from " + tableName);
 				while (results.next()) {
 					teacherNames.add(results.getString(1));
 				}
@@ -57,7 +56,7 @@ public class TeacherTable extends Database{
 		ArrayList<String> teacherNames = new ArrayList<String>();
 		try {
 			stmt = conn.createStatement();
-			ResultSet results = stmt.executeQuery("select short_name from " + tableName);
+			ResultSet results = stmt.executeQuery("select "+ shortNameColumn + " from " + tableName);
 			while (results.next()) {
 				teacherNames.add(results.getString(1));
 			}
@@ -72,7 +71,7 @@ public class TeacherTable extends Database{
 	public ArrayList<Integer> selectID() {
 		ArrayList<Integer> teacherID = new ArrayList<Integer>();
 		try {
-			ResultSet results = stmt.executeQuery("select id from " + tableName);
+			ResultSet results = stmt.executeQuery("select " + IDcolumn + " from " + tableName);
 			while (results.next()) {
 			while(results.next()) {
 				teacherID.add(results.getInt(1));

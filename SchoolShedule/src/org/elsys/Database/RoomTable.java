@@ -5,20 +5,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RoomTable extends Database{
-	private String tableName="Room";
+public static final String tableName="Room";
+public static final String IDcolumn="id";
+public static final String roomNumberColumn="number";
 	public RoomTable() {
 		createDatabaseConnection();
 	}
 	
-	public RoomTable(String tableName) {
-		this.tableName=tableName;
-		createDatabaseConnection();
-	}
 	public void create() {
 		try {
 			stmt = conn.createStatement();
 			stmt.execute("create table " + tableName
-					+ "(id int primary key,name varchar(5))");
+					+ "(" + IDcolumn + " int primary key," + roomNumberColumn + " varchar(5))");
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -41,7 +39,7 @@ public class RoomTable extends Database{
 			ArrayList<String> roomNumbers = new ArrayList<String>();
 			try {
 				stmt = conn.createStatement();
-				ResultSet results = stmt.executeQuery("select name from " + tableName);
+				ResultSet results = stmt.executeQuery("select " + roomNumberColumn + " from " + tableName);
 				while (results.next()) {
 					roomNumbers.add(results.getString(1));
 				}
@@ -56,7 +54,7 @@ public class RoomTable extends Database{
 	private ArrayList<Integer> selectID() {
 		ArrayList<Integer> ID = new ArrayList<Integer>();
 		try {
-			ResultSet results = stmt.executeQuery("select id from " + tableName);
+			ResultSet results = stmt.executeQuery("select " + IDcolumn + " from " + tableName);
 			while (results.next()) {
 			while(results.next()) {
 				ID.add(results.getInt(1));

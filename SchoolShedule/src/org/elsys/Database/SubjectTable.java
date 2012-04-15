@@ -5,20 +5,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SubjectTable extends Database{
-	private String tableName="Subject";
+	public static final String tableName="Subject";
+	public static final String IDcolumn="id";
+	public static final String nameColumn="name";
 	public SubjectTable() {
 		createDatabaseConnection();
 	}
 	
-	public SubjectTable(String tableName) {
-		this.tableName=tableName;
-		createDatabaseConnection();
-	}
 	public void create() {
 		try {
 			stmt = conn.createStatement();
 			stmt.execute("create table " + tableName
-					+ "(id int primary key,name varchar(30))");
+					+ "(" + IDcolumn + " int primary key," + nameColumn + " varchar(30))");
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -41,7 +39,7 @@ public class SubjectTable extends Database{
 			ArrayList<String> subjects = new ArrayList<String>();
 			try {
 				stmt = conn.createStatement();
-				ResultSet results = stmt.executeQuery("select name from " + tableName);
+				ResultSet results = stmt.executeQuery("select " + nameColumn + " from " + tableName);
 				while (results.next()) {
 					subjects.add(results.getString(1));
 				}
@@ -56,7 +54,7 @@ public class SubjectTable extends Database{
 	private ArrayList<Integer> selectID() {
 		ArrayList<Integer> ID = new ArrayList<Integer>();
 		try {
-			ResultSet results = stmt.executeQuery("select id from " + tableName);
+			ResultSet results = stmt.executeQuery("select " + IDcolumn + " from " + tableName);
 			while (results.next()) {
 			while(results.next()) {
 				ID.add(results.getInt(1));
