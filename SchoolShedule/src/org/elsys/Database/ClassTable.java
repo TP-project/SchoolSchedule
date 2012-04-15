@@ -56,9 +56,9 @@ public static final String specificationColumn="specificationID";
 		ArrayList<String> specifications = new ArrayList<String>();
 		try {
 			stmt = conn.createStatement();
-			ResultSet results = stmt.executeQuery("select * from " + tableName + ", " + SpecificationTable.tableName );
+			ResultSet results = stmt.executeQuery("select " + SpecificationTable.nameColumn + " from " + tableName + ", " + SpecificationTable.tableName + " where " + tableName + "." + specificationColumn + "=" + SpecificationTable.tableName + "." + SpecificationTable.IDcolumn );
 			while (results.next()) {
-				specifications.add(results.getString(5));
+				specifications.add(results.getString(1));
 			}
 			results.close();
 			stmt.close();
