@@ -27,7 +27,7 @@ public static final String roomNumberColumn="number";
 	public void insert(String roomNumber) {
 		try {
 			stmt = conn.createStatement();
-			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+2;
+			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+1;
 			stmt.execute("insert into " + tableName + " values (" + id + ",'" + roomNumber+"')");
 			stmt.close();
 		} catch (SQLException e) {
@@ -55,10 +55,8 @@ public static final String roomNumberColumn="number";
 		ArrayList<Integer> ID = new ArrayList<Integer>();
 		try {
 			ResultSet results = stmt.executeQuery("select " + IDcolumn + " from " + tableName);
-			while (results.next()) {
 			while(results.next()) {
 				ID.add(results.getInt(1));
-			}
 			}
 			results.close();
 		} catch (SQLException e) {

@@ -28,7 +28,7 @@ public static final String specificationColumn="specificationID";
 	public void insert(String schoolClass, int specID) {
 		try {
 			stmt = conn.createStatement();
-			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+2;
+			int id=(selectID().size()==0) ? 1:selectID().get(selectID().size()-1)+1;
 			stmt.execute("insert into " + tableName + " values (" + id + ",'" + schoolClass+"'," + specID + ")");
 			stmt.close();
 		} catch (SQLException e) {
@@ -56,7 +56,7 @@ public static final String specificationColumn="specificationID";
 		ArrayList<String> specifications = new ArrayList<String>();
 		try {
 			stmt = conn.createStatement();
-			ResultSet results = stmt.executeQuery("select * from " + tableName + ", " + SpecificationTable.tableName);
+			ResultSet results = stmt.executeQuery("select * from " + tableName + ", " + SpecificationTable.tableName );
 			while (results.next()) {
 				specifications.add(results.getString(5));
 			}
@@ -72,10 +72,8 @@ public static final String specificationColumn="specificationID";
 		ArrayList<Integer> teacherID = new ArrayList<Integer>();
 		try {
 			ResultSet results = stmt.executeQuery("select id from " + tableName);
-			while (results.next()) {
 			while(results.next()) {
 				teacherID.add(results.getInt(1));
-			}
 			}
 			results.close();
 		} catch (SQLException e) {
