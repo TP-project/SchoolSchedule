@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>SchoolShedule</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.pde.ManifestBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.pde.SchemaBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.pde.PluginNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>lib/derby.jar</name>
+			<type>1</type>
+			<location>/home/kosyo/school/TP/SchoolSheduleProject/db-derby-10.8.2.2-bin/lib/derby.jar</location>
+		</link>
+		<link>
+			<name>lib/derbyclient.jar</name>
+			<type>1</type>
+			<location>/home/kosyo/school/TP/SchoolSheduleProject/db-derby-10.8.2.2-bin/lib/derbyclient.jar</location>
+		</link>
+		<link>
+			<name>lib/gdata-core-1.0.jar</name>
+			<type>1</type>
+			<location>/home/kosyo/school/TP/gdataAPIjars/gdata-core-1.0.jar</location>
+		</link>
+	</linkedResources>
+</projectDescription>
