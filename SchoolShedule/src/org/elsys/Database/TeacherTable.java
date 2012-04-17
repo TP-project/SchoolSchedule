@@ -13,6 +13,10 @@ public class TeacherTable extends Database {
 	public TeacherTable() {
 		createDatabaseConnection();
 	}
+	
+	protected void finalize() throws Throwable {
+		shutdownDatabase();
+	}
 
 	public void create() throws SQLException {
 		stmt = conn.createStatement();
