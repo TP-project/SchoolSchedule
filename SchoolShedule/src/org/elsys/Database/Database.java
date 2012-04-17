@@ -19,7 +19,7 @@ public class Database {
 		}
 	}
 
-	public void shutdown() {
+	public void shutdownDatabase() {
 		try {
 			if (stmt != null) {
 				stmt.close();
