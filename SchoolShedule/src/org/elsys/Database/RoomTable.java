@@ -34,6 +34,12 @@ public static final String roomNumberColumn="number";
 			e.printStackTrace();
 		}
 }
+	
+	public void delete(String number) throws SQLException {
+			stmt = conn.createStatement();
+			stmt.execute("delete from " + tableName + " where " + roomNumberColumn + " = '" + number + "'");
+			stmt.close();
+	}
 
 	public ArrayList<String> selectRoomNumber() {
 			ArrayList<String> roomNumbers = new ArrayList<String>();

@@ -35,6 +35,12 @@ public class SpecificationTable extends Database{
 		}
 }
 
+	public void delete(String specification) throws SQLException {
+		stmt = conn.createStatement();
+		stmt.execute("delete from " + tableName + " where " + nameColumn + " = '" + specification + "'");
+		stmt.close();
+}
+	
 	public ArrayList<String> selectSpecification() {
 			ArrayList<String> subjects = new ArrayList<String>();
 			try {

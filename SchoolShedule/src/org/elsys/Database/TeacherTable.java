@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeacherTable extends Database{
-	public static final String tableName="Teacher1";
+	public static final String tableName="Teacher";
 	public static final String IDcolumn="id";
 	public static final String shortNameColumn="short_name";
 	public static final String nameColumn="name";
@@ -35,6 +35,12 @@ public class TeacherTable extends Database{
 			e.printStackTrace();
 		}
 }
+	
+	public void delete(String name) throws SQLException {
+			stmt = conn.createStatement();
+			stmt.execute("delete from " + tableName + " where " + nameColumn + " = '" + name + "'");
+			stmt.close();
+	}
 
 	public ArrayList<String> selectName() {
 			ArrayList<String> teacherNames = new ArrayList<String>();

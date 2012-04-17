@@ -34,6 +34,12 @@ public class SubjectTable extends Database{
 			e.printStackTrace();
 		}
 }
+	
+	public void delete(String subject) throws SQLException {
+		stmt = conn.createStatement();
+		stmt.execute("delete from " + tableName + " where " + nameColumn + " = '" + subject + "'");
+		stmt.close();
+	}
 
 	public ArrayList<String> selectSubject() {
 			ArrayList<String> subjects = new ArrayList<String>();

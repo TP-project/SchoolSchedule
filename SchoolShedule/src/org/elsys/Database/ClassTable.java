@@ -35,6 +35,12 @@ public static final String specificationColumn="specificationID";
 			e.printStackTrace();
 		}
 }
+	
+	public void delete(String schoolClass) throws SQLException {
+		stmt = conn.createStatement();
+		stmt.execute("delete from " + tableName + " where " + classNameColumn + " = '" + schoolClass + "'");
+		stmt.close();
+	}
 
 	public ArrayList<String> selectClass() {
 			ArrayList<String>Classes = new ArrayList<String>();
