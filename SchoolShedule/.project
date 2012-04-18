@@ -41,5 +41,15 @@
 			<type>1</type>
 			<location>/home/kosyo/school/TP/gdataAPIjars/gdata-core-1.0.jar</location>
 		</link>
+		<link>
+			<name>lib/junit.jar</name>
+			<type>1</type>
+			<location>/usr/share/java/junit4-4.8.2.jar</location>
+		</link>
+		<link>
+			<name>lib/swt.jar</name>
+			<type>1</type>
+			<location>/home/kosyo/Downloads/swt.jar</location>
+		</link>
 	</linkedResources>
 </projectDescription>
