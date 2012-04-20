@@ -1,3 +1,4 @@
+package org.elsys.ui;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
