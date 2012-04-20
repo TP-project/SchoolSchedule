@@ -1,4 +1,3 @@
-package ui;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -17,7 +16,7 @@ public class ErrorWindow {
 	Label label=new Label(shell, SWT.NONE);
 	final Button button= new Button(shell, SWT.PUSH);
 	
-	public ErrorWindow(){
+	ErrorWindow(){
 		
 		shell.setText("Error!");
 		shell.setBounds(80, 80, 300, 150);
@@ -44,7 +43,7 @@ public class ErrorWindow {
 		      });
 		
 	}
-	public void openWindow(){
+	void openWindow(){
 	//GridData gridData = new GridData();
 		//gridData.horizontalAlignment = GridData.CENTER;
 		//gridData.grabExcessHorizontalSpace = true;
