@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.elsys.DatabaseConnection.Database;
+
 public class ClassTable extends Database {
 	public static final String tableName = "Class";
 	public static final String IDcolumn = "id";
@@ -21,7 +23,7 @@ public class ClassTable extends Database {
 	public void create() throws SQLException {
 		stmt = conn.createStatement();
 		stmt.execute("create table " + tableName + "(" + IDcolumn
-				+ " int primary key," + classNameColumn + " varchar(12),"
+				+ " int," + classNameColumn + " varchar(12) primary key,"
 				+ specificationColumn + " int)");
 		stmt.close();
 	}
@@ -43,16 +45,16 @@ public class ClassTable extends Database {
 	}
 
 	public ArrayList<String> selectClass() throws SQLException {
-		ArrayList<String> Classes = new ArrayList<String>();
+		ArrayList<String> classes = new ArrayList<String>();
 		stmt = conn.createStatement();
 		ResultSet results = stmt.executeQuery("select " + classNameColumn
 				+ " from " + tableName);
 		while (results.next()) {
-			Classes.add(results.getString(1));
+			classes.add(results.getString(1));
 		}
 		results.close();
 		stmt.close();
-		return Classes;
+		return classes;
 	}
 
 	public ArrayList<String> selectSpecification() throws SQLException {
@@ -71,7 +73,7 @@ public class ClassTable extends Database {
 		return specifications;
 	}
 
-	public ArrayList<Integer> selectID() throws SQLException {
+	private ArrayList<Integer> selectID() throws SQLException {
 		ArrayList<Integer> teacherID = new ArrayList<Integer>();
 		ResultSet results = stmt.executeQuery("select id from " + tableName);
 		while (results.next()) {
@@ -81,4 +83,21 @@ public class ClassTable extends Database {
 		return teacherID;
 	}
 
+	public int getID(String className) throws SQLException {
+		int res;
+		stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery("select id from " + tableName + " where " + classNameColumn + "='" + className + "'");
+		if (results.next()) {
+			res = results.getInt(1);
+		} else return -1;
+		results.close();
+		stmt.close();
+		return res;
+	}
+	
+	public void drop() throws SQLException {
+		stmt = conn.createStatement();
+		stmt.execute("drop table " + tableName);
+		stmt.close();
+	}
 }
