@@ -7,7 +7,8 @@ import java.sql.Statement;
 import java.sql.ResultSetMetaData;
 
 public class Database {
-	private static String dbURL = "jdbc:derby:/home/kosyo/SchoolShedueleDB;create=true;";
+	private final static String databaseName= "SchoolShefinaldueleDB1";
+	private static String dbURL = "jdbc:derby:/home/kosyo/" + databaseName + ";create=true;";
 	protected static Connection conn = null;
 	protected static Statement stmt = null;
 	public void createDatabaseConnection() {
@@ -29,7 +30,7 @@ public class Database {
 				conn.close();
 			}
 		} catch (SQLException sqlExcept) {
-
+			sqlExcept.printStackTrace();
 		}
 
 	}
