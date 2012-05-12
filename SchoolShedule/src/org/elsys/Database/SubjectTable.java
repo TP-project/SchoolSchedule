@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.elsys.DatabaseConnection.Database;
+
 public class SubjectTable extends Database {
 	public static final String tableName = "Subject";
 	public static final String IDcolumn = "id";
@@ -64,4 +66,21 @@ public class SubjectTable extends Database {
 		return ID;
 	}
 
+	public int getID(String subject) throws SQLException {
+		int res;
+		stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery("select id from " + tableName + " where " + nameColumn + "='" + subject + "'");
+		if (results.next()) {
+			res = results.getInt(1);
+		} else return -1;
+		results.close();
+		stmt.close();
+		return res;
+	}
+	
+	public void drop() throws SQLException {
+		stmt = conn.createStatement();
+		stmt.execute("drop table " + tableName);
+		stmt.close();
+	}
 }

@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.elsys.DatabaseConnection.Database;
+
 public class ContactTable extends Database {
 	public static final String tableName = "Contact";
 	public static final String IDcolumn = "id";
@@ -71,7 +73,7 @@ public class ContactTable extends Database {
 		return teachers;
 	}
 
-	public ArrayList<Integer> selectID() throws SQLException {
+	private ArrayList<Integer> selectID() throws SQLException {
 		ArrayList<Integer> ID = new ArrayList<Integer>();
 		ResultSet results = stmt.executeQuery("select " + IDcolumn + " from " + tableName);
 		while (results.next()) {
@@ -81,4 +83,21 @@ public class ContactTable extends Database {
 		return ID;
 	}
 
+	public int getID(String gsm) throws SQLException {
+		int res;
+		stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery("select id from " + tableName + " where " + gsmColumn + "='" + gsm + "'");
+		if (results.next()) {
+			res = results.getInt(1);
+		} else return -1;
+		results.close();
+		stmt.close();
+		return res;
+	}
+	
+	public void drop() throws SQLException {
+		stmt = conn.createStatement();
+		stmt.execute("drop table " + tableName);
+		stmt.close();
+	}
 }

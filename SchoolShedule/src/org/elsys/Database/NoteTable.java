@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.elsys.DatabaseConnection.Database;
+
 public class NoteTable extends Database {
 	public static final String tableName = "Notes";
 	public static final String IDcolumn = "id";
@@ -109,5 +111,10 @@ public class NoteTable extends Database {
 		results.close();
 		return ID;
 	}
-
+	
+	public void drop() throws SQLException {
+		stmt = conn.createStatement();
+		stmt.execute("drop table " + tableName);
+		stmt.close();
+	}
 }
