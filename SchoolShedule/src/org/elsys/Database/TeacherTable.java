@@ -15,7 +15,7 @@ public class TeacherTable extends Database {
 	public void create() throws SQLException {
 		stmt = conn.createStatement();
 		stmt.execute("create table " + tableName + "(" + IDcolumn
-				+ " int primary key," + nameColumn + " varchar(12),"
+				+ " int primary key," + nameColumn + " varchar(30),"
 				+ shortNameColumn + " varchar(5))");
 		stmt.close();
 	}
