@@ -95,6 +95,7 @@ public class ScheduleTable extends Database {
 	}
 
 	public Integer lastId() throws SQLException {
+		stmt = conn.createStatement();
 		ArrayList<Integer> id = new ArrayList<Integer>();
 		ResultSet results = stmt.executeQuery("select " + IDcolumn + " from "
 				+ tableName);
