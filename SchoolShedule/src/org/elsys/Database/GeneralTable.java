@@ -77,12 +77,32 @@ public class GeneralTable extends Database {
 		stmt.close();
 		return entries;
 	}
-	
-	public ArrayList<ArrayList<String>> selectEntries(String year, int term) throws SQLException {
+
+	public ArrayList<ArrayList<String>> selectEntries(String year, int term)
+			throws SQLException {
 		ArrayList<ArrayList<String>> entries = new ArrayList<ArrayList<String>>();
 		stmt = conn.createStatement();
 		ResultSet results = stmt.executeQuery("select " + scheduleColumn
-				+ " from " + tableName + " where " + yearColumn + "='" + year + "' and " + termColumn + "=" + term);
+				+ " from " + tableName + " where " + yearColumn + "='" + year
+				+ "' and " + termColumn + "=" + term);
+		ScheduleTable table = new ScheduleTable();
+		while (results.next()) {
+			entries.add(table.selectEntry(results.getInt(1)));
+		}
+		results.close();
+		stmt.close();
+		return entries;
+	}
+
+	public ArrayList<ArrayList<String>> selectEntries(String year, int term,
+			int idClass) throws SQLException {
+		ArrayList<ArrayList<String>> entries = new ArrayList<ArrayList<String>>();
+		stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery("select " + scheduleColumn
+				+ " from " + tableName + "," + ScheduleTable.tableName + " where " + yearColumn + "='" + year
+				+ "' and " + termColumn + "=" + term + " and " + scheduleColumn
+				+ "=" + ScheduleTable.tableName + "." + ScheduleTable.IDcolumn + " and "
+				+ ScheduleTable.classColumn + "=" + idClass);
 		ScheduleTable table = new ScheduleTable();
 		while (results.next()) {
 			entries.add(table.selectEntry(results.getInt(1)));
@@ -102,7 +122,7 @@ public class GeneralTable extends Database {
 		results.close();
 		return teacherID;
 	}
-	
+
 	public void drop() throws SQLException {
 		stmt = conn.createStatement();
 		stmt.execute("drop table " + tableName);
