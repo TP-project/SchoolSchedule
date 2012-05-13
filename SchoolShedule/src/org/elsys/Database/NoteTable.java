@@ -14,14 +14,6 @@ public class NoteTable extends Database {
 	public static final String otherNoteColumn = "other_note";
 	public static final String isItRequiredColumn = "is_it_required";
 
-	public NoteTable() {
-		createDatabaseConnection();
-	}
-
-	protected void finalize() throws Throwable {
-		shutdownDatabase();
-	}
-
 	public void create() throws SQLException {
 		stmt = conn.createStatement();
 		stmt.execute("create table " + tableName + "(" + IDcolumn

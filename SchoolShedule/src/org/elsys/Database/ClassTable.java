@@ -12,14 +12,6 @@ public class ClassTable extends Database {
 	public static final String classNameColumn = "className";
 	public static final String specificationColumn = "specificationID";
 
-	public ClassTable() {
-		createDatabaseConnection();
-	}
-	
-	protected void finalize() throws Throwable {
-		shutdownDatabase();
-	}
-
 	public void create() throws SQLException {
 		stmt = conn.createStatement();
 		stmt.execute("create table " + tableName + "(" + IDcolumn

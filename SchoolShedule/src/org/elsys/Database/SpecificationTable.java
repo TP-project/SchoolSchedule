@@ -11,13 +11,6 @@ public class SpecificationTable extends Database {
 	public static final String IDcolumn = "id";
 	public static final String nameColumn = "name";
 
-	public SpecificationTable() {
-		createDatabaseConnection();
-	}
-	
-	protected void finalize() throws Throwable {
-		shutdownDatabase();
-	}
 
 	public void create() throws SQLException {
 		stmt = conn.createStatement();

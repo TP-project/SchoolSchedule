@@ -12,14 +12,6 @@ public class ContactTable extends Database {
 	public static final String gsmColumn = "gsm";
 	public static final String teacherColumn = "teacherID";
 
-	public ContactTable() {
-		createDatabaseConnection();
-	}
-	
-	protected void finalize() throws Throwable {
-		shutdownDatabase();
-	}
-
 	public void create() throws SQLException {
 		stmt = conn.createStatement();
 		stmt.execute("create table " + tableName + "(" + IDcolumn

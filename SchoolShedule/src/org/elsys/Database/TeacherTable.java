@@ -12,14 +12,6 @@ public class TeacherTable extends Database {
 	public static final String shortNameColumn = "short_name";
 	public static final String nameColumn = "name";
 
-	public TeacherTable() {
-		createDatabaseConnection();
-	}
-	
-	protected void finalize() throws Throwable {
-		shutdownDatabase();
-	}
-
 	public void create() throws SQLException {
 		stmt = conn.createStatement();
 		stmt.execute("create table " + tableName + "(" + IDcolumn

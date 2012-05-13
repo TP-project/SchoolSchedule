@@ -13,14 +13,6 @@ public class GeneralTable extends Database {
 	public static final String termColumn = "term";
 	public static final String scheduleColumn = "shedule_id";
 
-	public GeneralTable() {
-		createDatabaseConnection();
-	}
-
-	protected void finalize() throws Throwable {
-		shutdownDatabase();
-	}
-
 	public void create() throws SQLException {
 		stmt = conn.createStatement();
 		stmt.execute("create table " + tableName + "(" + IDcolumn

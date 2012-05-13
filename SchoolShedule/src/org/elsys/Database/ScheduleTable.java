@@ -15,13 +15,6 @@ public class ScheduleTable extends Database {
 	public static final String classColumn = "classID";
 	public static final String hoursPerWeekColumn = "hours_per_week";
 
-	public ScheduleTable() {
-		createDatabaseConnection();
-	}
-
-	protected void finalize() throws Throwable {
-		shutdownDatabase();
-	}
 
 	public void create() throws SQLException {
 		stmt = conn.createStatement();
