@@ -95,14 +95,16 @@ public class GeneralTable extends Database {
 	}
 
 	public ArrayList<ArrayList<String>> selectEntries(String year, int term,
-			int idClass) throws SQLException {
+			String className) throws SQLException {
 		ArrayList<ArrayList<String>> entries = new ArrayList<ArrayList<String>>();
 		stmt = conn.createStatement();
+		ClassTable cl=new ClassTable();
 		ResultSet results = stmt.executeQuery("select " + scheduleColumn
 				+ " from " + tableName + "," + ScheduleTable.tableName + " where " + yearColumn + "='" + year
 				+ "' and " + termColumn + "=" + term + " and " + scheduleColumn
 				+ "=" + ScheduleTable.tableName + "." + ScheduleTable.IDcolumn + " and "
-				+ ScheduleTable.classColumn + "=" + idClass);
+				+ ScheduleTable.classColumn + "=" + cl.getID(className));
+		
 		ScheduleTable table = new ScheduleTable();
 		while (results.next()) {
 			entries.add(table.selectEntry(results.getInt(1)));
