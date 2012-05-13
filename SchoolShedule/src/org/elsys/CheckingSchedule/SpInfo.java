@@ -1,5 +1,7 @@
 package org.elsys.CheckingSchedule;
 
+import org.elsys.Spreadsheet.Cell;
+
 public class SpInfo {
 	public static final int rowForYear = 1;
 	public static final int colForYear = 14;
@@ -16,5 +18,8 @@ public class SpInfo {
 	public static final int secondClassSubjectsCol = 13;
 	public static final int thirdClassSubjectsCol = 22;
 	public static final int fourthClassSubjectsCol = 31;
-
+	public static final Cell firstClass = new Cell(classRow, firstClassCol);
+	public static final Cell secondClass = new Cell(classRow, secondClassCol);
+	public static final Cell thirdClass = new Cell(classRow, thirdClassCol);
+	public static final Cell fourthClass = new Cell(classRow, fourthClassCol);
 }
