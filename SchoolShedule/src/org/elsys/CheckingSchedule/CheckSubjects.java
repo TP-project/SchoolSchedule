@@ -20,15 +20,13 @@ public class CheckSubjects {
 	}
 
 	private ArrayList<String> getExtraSubjects(Cell schoolClass, int col) {
-		Cell year = new Cell(SpInfo.rowForYear, SpInfo.colForYear);
-		Cell termCell = new Cell(SpInfo.rowForTerm, SpInfo.colForTerm);
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 		ArrayList<String> extraSubjects = new ArrayList<String>();
 
 		try {
 			extraSubjects.add(sp.getCellValue(schoolClass).substring(0, 3));
-			res = table.selectEntries(sp.getCellValue(year),
-					sp.getCellValue(termCell).charAt(0) - 48,
+			res = table.selectEntries(sp.getCellValue(SpInfo.year),
+					sp.getCellValue(SpInfo.termCell).charAt(0) - 48,
 					sp.getCellValue(schoolClass).substring(0, 3));
 			for (int i = 0; i < res.size(); i++) {
 				if (sp.search(SpInfo.startClassRow, SpInfo.endClassRow, col, col,
