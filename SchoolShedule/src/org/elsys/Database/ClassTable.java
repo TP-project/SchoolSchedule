@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.elsys.DatabaseConnection.Database;
 
-public class ClassTable extends Database {
+public class ClassTable extends Database{
 	public static final String tableName = "Class";
 	public static final String IDcolumn = "id";
 	public static final String classNameColumn = "className";
@@ -66,13 +66,13 @@ public class ClassTable extends Database {
 	}
 
 	private ArrayList<Integer> selectID() throws SQLException {
-		ArrayList<Integer> teacherID = new ArrayList<Integer>();
+		ArrayList<Integer> classID = new ArrayList<Integer>();
 		ResultSet results = stmt.executeQuery("select id from " + tableName);
 		while (results.next()) {
-			teacherID.add(results.getInt(1));
+			classID.add(results.getInt(1));
 		}
 		results.close();
-		return teacherID;
+		return classID;
 	}
 
 	public int getID(String className) throws SQLException {
@@ -85,6 +85,18 @@ public class ClassTable extends Database {
 		results.close();
 		stmt.close();
 		return res;
+	}
+	
+	public boolean haveString(String str) throws SQLException {
+		stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery("select " + classNameColumn  + " from " + tableName);
+		while (results.next()) {
+			if(results.getString(1).contentEquals(str)) {
+				return true;
+			}
+		}
+		return false;
+
 	}
 	
 	public void drop() throws SQLException {

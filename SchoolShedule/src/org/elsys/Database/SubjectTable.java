@@ -71,6 +71,18 @@ public class SubjectTable extends Database {
 		return res;
 	}
 	
+	public boolean haveString(String str) throws SQLException {
+		stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery("select " + nameColumn  + " from " + tableName);
+		while (results.next()) {
+			if(results.getString(1).contentEquals(str)) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+	
 	public void drop() throws SQLException {
 		stmt = conn.createStatement();
 		stmt.execute("drop table " + tableName);
