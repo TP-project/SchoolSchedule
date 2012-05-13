@@ -45,7 +45,6 @@ public class ScheduleTable extends Database {
 	public ArrayList<String> selectEntry(int id) throws SQLException {
 		ArrayList<String> entry = new ArrayList<String>();
 		stmt = conn.createStatement();
-		// TODO fix select statement
 		ResultSet results = stmt.executeQuery("select "
 				+ SubjectTable.nameColumn + " from " + tableName + ", "
 				+ SubjectTable.tableName + " where " + tableName + "."
@@ -103,7 +102,11 @@ public class ScheduleTable extends Database {
 			id.add(results.getInt(1));
 		}
 		results.close();
-		return id.get(id.size()-1);
+		if (id.size()>0) {
+			return id.get(id.size()-1)+1;
+		} else {
+			return 0;
+		}
 	}
 	
 	public void drop() throws SQLException {
