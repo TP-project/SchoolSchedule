@@ -21,7 +21,7 @@ public static final String roomNumberColumn="number";
 	public void create() throws SQLException {
 			stmt = conn.createStatement();
 			stmt.execute("create table " + tableName
-					+ "(" + IDcolumn + " int primary key," + roomNumberColumn + " varchar(5))");
+					+ "(" + IDcolumn + " int," + roomNumberColumn + " varchar(5) primary key)");
 			stmt.close();
 	}
 
