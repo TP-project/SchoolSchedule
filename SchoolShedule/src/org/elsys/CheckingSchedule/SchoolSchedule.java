@@ -11,11 +11,11 @@ import org.elsys.Spreadsheet.Spreadsheet;
 
 import com.google.gdata.util.ServiceException;
 
-public class CheckSubjects {	
+public class SchoolSchedule {	
 	private Spreadsheet sp;
 	private GeneralTable table = new GeneralTable();
 
-	public CheckSubjects(Spreadsheet sp) {
+	public SchoolSchedule(Spreadsheet sp) {
 		this.sp = sp;
 	}
 
@@ -47,7 +47,7 @@ public class CheckSubjects {
 
 	}
 
-	public ArrayList<ArrayList<String>> checkExtraSubjects(int sheet) {
+	public ArrayList<ArrayList<String>> checkForExtraSubjects(int sheet) {
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 		try {
 			Database db = new Database();
@@ -65,6 +65,39 @@ public class CheckSubjects {
 			e.printStackTrace();
 		}
 		return res;
+	}
+	
+	public void fillRoomNumbers(Cell schoolClass, int col) {
+
+		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+
+		Database db = new Database();
+		db.createDatabaseConnection();
+
+		try {
+			sp.loadSheet(0);
+			res = table.selectEntries(sp.getCellValue(SpInfo.year), sp
+					.getCellValue(SpInfo.termCell).charAt(0) - 48, sp
+					.getCellValue(schoolClass).substring(0, 3));
+			for (int j = 0; j < res.size(); j++) {
+				for (int i = SpInfo.startClassRow; i < SpInfo.endClassRow; i++) {
+					if (sp.getCellValue(new Cell(i, col)) != null) {
+						if (sp.getCellValue(new Cell(i, col)).compareTo(
+								res.get(j).get(0)) == 0) {
+							Cell room = new Cell(i, col + 2);
+							sp.setCellValue(room, res.get(j).get(3));
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
