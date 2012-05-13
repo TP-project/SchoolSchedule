@@ -22,4 +22,6 @@ public class SpInfo {
 	public static final Cell secondClass = new Cell(classRow, secondClassCol);
 	public static final Cell thirdClass = new Cell(classRow, thirdClassCol);
 	public static final Cell fourthClass = new Cell(classRow, fourthClassCol);
+	public static final Cell year = new Cell(rowForYear, colForYear);
+	public static final Cell termCell = new Cell(rowForTerm, colForTerm);
 }
