@@ -132,5 +132,30 @@ public class GeneralTable extends Database {
 		stmt.execute("drop table " + tableName);
 		stmt.close();
 	}
+	
+	public boolean haveYear(String str) throws SQLException {
+		stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery("select " + yearColumn  + " from " + tableName);
+		while (results.next()) {
+			if(results.getString(1).contentEquals(str)) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	public boolean haveTerm(String str) throws SQLException {
+		stmt = conn.createStatement();
+		ResultSet results = stmt.executeQuery("select " + termColumn  + " from " + tableName);
+		while (results.next()) {
+			if(results.getString(1).contentEquals(str)) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
 
 }
