@@ -25,11 +25,10 @@ public class ScheduleTable extends Database {
 		stmt.close();
 	}
 
-	public void insert(int subjectId, int hoursPerWeek, int teacherId,
+	public void insert(int id, int subjectId, int hoursPerWeek, int teacherId,
 			int roomId, int classId) throws SQLException {
 		stmt = conn.createStatement();
-		int id = (selectID().size() == 0) ? 1 : selectID().get(
-				selectID().size() - 1) + 1;
+
 		stmt.execute("insert into " + tableName + " values (" + id + ","
 				+ subjectId + "," + hoursPerWeek + "," + teacherId + ","
 				+ roomId + "," + classId + ")");
@@ -95,15 +94,15 @@ public class ScheduleTable extends Database {
 		return entry;
 	}
 
-	public ArrayList<Integer> selectID() throws SQLException {
-		ArrayList<Integer> ID = new ArrayList<Integer>();
+	public Integer lastId() throws SQLException {
+		ArrayList<Integer> id = new ArrayList<Integer>();
 		ResultSet results = stmt.executeQuery("select " + IDcolumn + " from "
 				+ tableName);
 		while (results.next()) {
-			ID.add(results.getInt(1));
+			id.add(results.getInt(1));
 		}
 		results.close();
-		return ID;
+		return id.get(id.size()-1);
 	}
 	
 	public void drop() throws SQLException {
