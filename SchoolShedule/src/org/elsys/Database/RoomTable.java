@@ -10,13 +10,7 @@ public class RoomTable extends Database{
 public static final String tableName="Room";
 public static final String IDcolumn="id";
 public static final String roomNumberColumn="number";
-	public RoomTable() {
-		createDatabaseConnection();
-	}
-	
-	protected void finalize() throws Throwable {
-		shutdownDatabase();
-	}
+
 	
 	public void create() throws SQLException {
 			stmt = conn.createStatement();
