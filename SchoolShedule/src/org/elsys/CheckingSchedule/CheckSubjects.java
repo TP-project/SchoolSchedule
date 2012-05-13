@@ -56,15 +56,10 @@ public class CheckSubjects {
 			db.createDatabaseConnection();
 			sp.loadSheet(sheet);
 
-			Cell firstClass = new Cell(SpInfo.classRow, SpInfo.firstClassCol);
-			Cell secondClass = new Cell(SpInfo.classRow, SpInfo.secondClassCol);
-			Cell thirdClass = new Cell(SpInfo.classRow, SpInfo.thirdClassCol);
-			Cell fourthClass = new Cell(SpInfo.classRow, SpInfo.fourthClassCol);
-
-			res.add(getExtraSubjects(firstClass, SpInfo.firstClassSubjectsCol));
-			res.add(getExtraSubjects(secondClass, SpInfo.secondClassSubjectsCol));
-			res.add(getExtraSubjects(thirdClass, SpInfo.thirdClassSubjectsCol));
-			res.add(getExtraSubjects(fourthClass, SpInfo.fourthClassSubjectsCol));
+			res.add(getExtraSubjects(SpInfo.firstClass, SpInfo.firstClassSubjectsCol));
+			res.add(getExtraSubjects(SpInfo.secondClass, SpInfo.secondClassSubjectsCol));
+			res.add(getExtraSubjects(SpInfo.thirdClass, SpInfo.thirdClassSubjectsCol));
+			res.add(getExtraSubjects(SpInfo.fourthClass, SpInfo.fourthClassSubjectsCol));
 
 		} catch (IOException e) {
 			e.printStackTrace();
