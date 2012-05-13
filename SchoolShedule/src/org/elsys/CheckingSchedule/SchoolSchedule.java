@@ -26,7 +26,7 @@ public class SchoolSchedule {
 		try {
 			extraSubjects.add(sp.getCellValue(schoolClass).substring(0, 3));
 			res = table.selectEntries(sp.getCellValue(SpInfo.year),
-					sp.getCellValue(SpInfo.termCell).charAt(0) - 48,
+					sp.getCellValue(SpInfo.termCell).substring(0,1),
 					sp.getCellValue(schoolClass).substring(0, 3));
 			for (int i = 0; i < res.size(); i++) {
 				if (sp.search(SpInfo.startClassRow, SpInfo.endClassRow, col, col,
@@ -51,7 +51,17 @@ public class SchoolSchedule {
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 		try {
 			Database db = new Database();
-			db.createDatabaseConnection();
+			try {
+				db.createDatabaseConnection();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			sp.loadSheet(sheet);
 
 			res.add(getExtraSubjects(SpInfo.firstClass, SpInfo.firstClassSubjectsCol));
@@ -72,12 +82,22 @@ public class SchoolSchedule {
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 
 		Database db = new Database();
-		db.createDatabaseConnection();
+		try {
+			db.createDatabaseConnection();
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 
 		try {
 			sp.loadSheet(0);
 			res = table.selectEntries(sp.getCellValue(SpInfo.year), sp
-					.getCellValue(SpInfo.termCell).charAt(0) - 48, sp
+					.getCellValue(SpInfo.termCell).substring(0,1), sp
 					.getCellValue(schoolClass).substring(0, 3));
 			for (int j = 0; j < res.size(); j++) {
 				for (int i = SpInfo.startClassRow; i < SpInfo.endClassRow; i++) {
