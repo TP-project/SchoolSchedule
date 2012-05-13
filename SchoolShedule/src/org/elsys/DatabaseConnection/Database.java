@@ -7,26 +7,22 @@ import java.sql.Statement;
 import java.sql.ResultSetMetaData;
 
 public class Database {
-	private final static String databaseName= "SchoolShefinaldueleDB1";
+	private final static String databaseName= "SchoolShefinaldueleDB";
 	private static String dbURL = "jdbc:derby:/home/kosyo/" + databaseName + ";create=true;";
 	protected static Connection conn = null;
 	protected static Statement stmt = null;
-	public void createDatabaseConnection() {
-		try {
+	public void createDatabaseConnection() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 			conn = DriverManager.getConnection(dbURL);
-		} catch (Exception except) {
-			except.printStackTrace();
-		}
 	}
 
 	public void shutdownDatabase() {
 		try {
-			if (stmt != null) {
+			if (!stmt.isClosed()) {
 				stmt.close();
 			}
-			if (conn != null) {
-				DriverManager.getConnection(dbURL + ";shutdown=true");
+			if (!conn.isClosed()) {
+				DriverManager.getConnection(dbURL + ";shutdown=true;");
 				conn.close();
 			}
 		} catch (SQLException sqlExcept) {
