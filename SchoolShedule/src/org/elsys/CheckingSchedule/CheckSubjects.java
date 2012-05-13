@@ -11,23 +11,7 @@ import org.elsys.Spreadsheet.Spreadsheet;
 
 import com.google.gdata.util.ServiceException;
 
-public class CheckSubjects {
-	private static final int rowForYear = 1;
-	private static final int colForYear = 14;
-	private static final int rowForTerm = 1;
-	private static final int colForTerm = 13;
-	private static final int classRow = 2;
-	private static final int firstClassCol = 4;
-	private static final int secondClassCol = 13;
-	private static final int thirdClassCol = 22;
-	private static final int fourthClassCol = 31;
-	private static final int startClassRow = 2;
-	private static final int endClassRow = 50;
-	private static final int firstClassSubjectsCol = 4;
-	private static final int secondClassSubjectsCol = 13;
-	private static final int thirdClassSubjectsCol = 22;
-	private static final int fourthClassSubjectsCol = 31;
-
+public class CheckSubjects {	
 	private Spreadsheet sp;
 	private GeneralTable table = new GeneralTable();
 
@@ -36,8 +20,8 @@ public class CheckSubjects {
 	}
 
 	private ArrayList<String> getExtraSubjects(Cell schoolClass, int col) {
-		Cell year = new Cell(rowForYear, colForYear);
-		Cell termCell = new Cell(rowForTerm, colForTerm);
+		Cell year = new Cell(SpInfo.rowForYear, SpInfo.colForYear);
+		Cell termCell = new Cell(SpInfo.rowForTerm, SpInfo.colForTerm);
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 		ArrayList<String> extraSubjects = new ArrayList<String>();
 
@@ -47,7 +31,7 @@ public class CheckSubjects {
 					sp.getCellValue(termCell).charAt(0) - 48,
 					sp.getCellValue(schoolClass).substring(0, 3));
 			for (int i = 0; i < res.size(); i++) {
-				if (sp.search(startClassRow, endClassRow, col, col,
+				if (sp.search(SpInfo.startClassRow, SpInfo.endClassRow, col, col,
 						res.get(i).get(0)).size() > Integer.parseInt(res.get(i)
 						.get(1))) {
 					extraSubjects.add(res.get(i).get(0));
@@ -72,15 +56,15 @@ public class CheckSubjects {
 			db.createDatabaseConnection();
 			sp.loadSheet(sheet);
 
-			Cell firstClass = new Cell(classRow, firstClassCol);
-			Cell secondClass = new Cell(classRow, secondClassCol);
-			Cell thirdClass = new Cell(classRow, thirdClassCol);
-			Cell fourthClass = new Cell(classRow, fourthClassCol);
+			Cell firstClass = new Cell(SpInfo.classRow, SpInfo.firstClassCol);
+			Cell secondClass = new Cell(SpInfo.classRow, SpInfo.secondClassCol);
+			Cell thirdClass = new Cell(SpInfo.classRow, SpInfo.thirdClassCol);
+			Cell fourthClass = new Cell(SpInfo.classRow, SpInfo.fourthClassCol);
 
-			res.add(getExtraSubjects(firstClass, firstClassSubjectsCol));
-			res.add(getExtraSubjects(secondClass, secondClassSubjectsCol));
-			res.add(getExtraSubjects(thirdClass, thirdClassSubjectsCol));
-			res.add(getExtraSubjects(fourthClass, fourthClassSubjectsCol));
+			res.add(getExtraSubjects(firstClass, SpInfo.firstClassSubjectsCol));
+			res.add(getExtraSubjects(secondClass, SpInfo.secondClassSubjectsCol));
+			res.add(getExtraSubjects(thirdClass, SpInfo.thirdClassSubjectsCol));
+			res.add(getExtraSubjects(fourthClass, SpInfo.fourthClassSubjectsCol));
 
 		} catch (IOException e) {
 			e.printStackTrace();
