@@ -45,6 +45,10 @@ public class Spreadsheet {
 				.getCellFeedUrl();
 	}
 
+	public URL getCellFeedUrl() {
+		return cellFeedUrl;
+	}
+
 	public List<WorksheetEntry> getAllSheets() throws IOException,
 			ServiceException {
 		SpreadsheetFeed feed = service.getFeed(
@@ -87,7 +91,7 @@ public class Spreadsheet {
 
 	public void setCellErrorValue(Cell cell) throws IOException,
 			ServiceException {
-		String errorValue = getCellValue(cell) + " !!!!!!";
+		String errorValue = getCellValue(cell) + "!!!";
 		CellEntry newEntry = new CellEntry(cell.getRow(), cell.getCol(),
 				errorValue);
 		service.insert(cellFeedUrl, newEntry);
@@ -96,7 +100,7 @@ public class Spreadsheet {
 	public void removeCellErrorValue(Cell cell) throws IOException,
 			ServiceException {
 		String value = getCellValue(cell);
-		String normalValue = value.replaceAll("!", " ");
+		String normalValue = value.replaceAll("!", "");
 		CellEntry newEntry = new CellEntry(cell.getRow(), cell.getCol(),
 				normalValue);
 		service.insert(cellFeedUrl, newEntry);
