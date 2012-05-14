@@ -19,69 +19,73 @@ public class SchoolSchedule {
 		this.sp = sp;
 	}
 
-	private ArrayList<String> getExtraSubjects(Cell schoolClass, int col) throws IOException, ServiceException, SQLException {
+	private ArrayList<String> getExtraSubjects(Cell schoolClass, int col)
+			throws IOException, ServiceException, SQLException {
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 		ArrayList<String> extraSubjects = new ArrayList<String>();
 
-			extraSubjects.add(sp.getCellValue(schoolClass).substring(0, 3));
-			res = table.selectEntries(sp.getCellValue(SpInfo.year), sp
-					.getCellValue(SpInfo.termCell).substring(0, 1), sp
-					.getCellValue(schoolClass).substring(0, 3));
-			for (int i = 0; i < res.size(); i++) {
-				if (sp.search(SpInfo.startClassRow, SpInfo.endClassRow, col,
-						col, res.get(i).get(0)).size() > Integer.parseInt(res
-						.get(i).get(1))) {
-					extraSubjects.add(res.get(i).get(0));
-				}
+		extraSubjects.add(sp.getCellValue(schoolClass).substring(0, 3));
+		res = table.selectEntries(sp.getCellValue(SpInfo.year), sp
+				.getCellValue(SpInfo.termCell).substring(0, 1), sp
+				.getCellValue(schoolClass).substring(0, 3));
+		for (int i = 0; i < res.size(); i++) {
+			if (sp.search(SpInfo.startClassRow, SpInfo.endClassRow, col, col,
+					res.get(i).get(0)).size() > Integer.parseInt(res.get(i)
+					.get(1))) {
+				extraSubjects.add(res.get(i).get(0));
 			}
+		}
 
 		return extraSubjects;
 
 	}
 
-	public ArrayList<ArrayList<String>> checkForExtraSubjects(int sheet) throws IOException, ServiceException, SQLException {
+	public ArrayList<ArrayList<String>> checkForExtraSubjects(int sheet)
+			throws IOException, ServiceException, SQLException {
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
-			sp.loadSheet(sheet);
+		sp.loadSheet(sheet);
 
-			res.add(getExtraSubjects(SpInfo.firstClass,
-					SpInfo.firstClassSubjectsCol));
-			res.add(getExtraSubjects(SpInfo.secondClass,
-					SpInfo.secondClassSubjectsCol));
-			res.add(getExtraSubjects(SpInfo.thirdClass,
-					SpInfo.thirdClassSubjectsCol));
-			res.add(getExtraSubjects(SpInfo.fourthClass,
-					SpInfo.fourthClassSubjectsCol));
+		res.add(getExtraSubjects(SpInfo.firstClass,
+				SpInfo.firstClassSubjectsCol));
+		res.add(getExtraSubjects(SpInfo.secondClass,
+				SpInfo.secondClassSubjectsCol));
+		res.add(getExtraSubjects(SpInfo.thirdClass,
+				SpInfo.thirdClassSubjectsCol));
+		res.add(getExtraSubjects(SpInfo.fourthClass,
+				SpInfo.fourthClassSubjectsCol));
 
 		return res;
 	}
 
-	public void fillRoomNumbers(Cell schoolClass, int col, int sheet) throws SQLException, IOException, ServiceException {
+	public void fillRoomNumbers(int sheet, Cell schoolClass, int col)
+			throws SQLException, IOException, ServiceException {
 
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 
-			sp.loadSheet(sheet);
-			res = table.selectEntries(sp.getCellValue(SpInfo.year), sp
-					.getCellValue(SpInfo.termCell).substring(0, 1), sp
-					.getCellValue(schoolClass).substring(0, 3));
-			for (int j = 0; j < res.size(); j++) {
-				for (int i = SpInfo.startClassRow; i < SpInfo.endClassRow; i++) {
-					if (sp.getCellValue(new Cell(i, col)) != null) {
-						if (sp.getCellValue(new Cell(i, col)).compareTo(
-								res.get(j).get(0)) == 0) {
-							Cell room = new Cell(i, col + 2);
-							sp.setCellValue(room, res.get(j).get(3));
-						}
+		sp.loadSheet(sheet);
+		res = table.selectEntries(sp.getCellValue(SpInfo.year), sp
+				.getCellValue(SpInfo.termCell).substring(0, 1), sp
+				.getCellValue(schoolClass).substring(0, 3));
+		for (int j = 0; j < res.size(); j++) {
+			for (int i = SpInfo.startClassRow; i < SpInfo.endClassRow; i++) {
+				if (sp.getCellValue(new Cell(i, col)) != null) {
+					if (sp.getCellValue(new Cell(i, col)).compareTo(
+							res.get(j).get(0)) == 0) {
+						Cell room = new Cell(i, col + 2);
+						sp.setCellValue(room, res.get(j).get(3));
 					}
 				}
 			}
+		}
 	}
 
-	public void fillRoomNumbers(int sheet) throws SQLException, IOException, ServiceException {
-		fillRoomNumbers(SpInfo.firstClass, SpInfo.firstClassSubjectsCol, sheet);
-		fillRoomNumbers(SpInfo.secondClass, SpInfo.secondClassSubjectsCol,
-				sheet);
-		fillRoomNumbers(SpInfo.thirdClass, SpInfo.thirdClassSubjectsCol, sheet);
-		fillRoomNumbers(SpInfo.fourthClass, SpInfo.fourthClassSubjectsCol,
-				sheet);
+	public void fillRoomNumbers(int sheet) throws SQLException, IOException,
+			ServiceException {
+		fillRoomNumbers(sheet, SpInfo.firstClass, SpInfo.firstClassSubjectsCol);
+		fillRoomNumbers(sheet, SpInfo.secondClass,
+				SpInfo.secondClassSubjectsCol);
+		fillRoomNumbers(sheet, SpInfo.thirdClass, SpInfo.thirdClassSubjectsCol);
+		fillRoomNumbers(sheet, SpInfo.fourthClass,
+				SpInfo.fourthClassSubjectsCol);
 	}
 }
