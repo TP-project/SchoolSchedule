@@ -61,7 +61,7 @@ public class ScheduleTable extends Database {
 			entry.add(results.getString(1));
 		}
 		
-		results = stmt.executeQuery("select " + TeacherTable.nameColumn
+		results = stmt.executeQuery("select " + TeacherTable.shortNameColumn
 				+ " from " + tableName + ", " + TeacherTable.tableName
 				+ " where " + tableName + "." + teacherColumn + "="
 				+ TeacherTable.tableName + "." + TeacherTable.IDcolumn
