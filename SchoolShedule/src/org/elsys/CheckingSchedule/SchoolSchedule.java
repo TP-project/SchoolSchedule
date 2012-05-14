@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.elsys.Database.GeneralTable;
+import org.elsys.Database.TeacherTable;
 import org.elsys.DatabaseConnection.Database;
 import org.elsys.Spreadsheet.Cell;
 import org.elsys.Spreadsheet.Spreadsheet;
@@ -86,6 +87,37 @@ public class SchoolSchedule {
 				SpInfo.secondClassSubjectsCol);
 		fillRoomNumbers(sheet, SpInfo.thirdClass, SpInfo.thirdClassSubjectsCol);
 		fillRoomNumbers(sheet, SpInfo.fourthClass,
+				SpInfo.fourthClassSubjectsCol);
+	}
+
+	public void fillTeachers(int sheet, Cell schoolClass, int col)
+			throws SQLException, IOException, ServiceException {
+
+		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+		sp.loadSheet(sheet);
+		res = table.selectEntries(sp.getCellValue(SpInfo.year), sp
+				.getCellValue(SpInfo.termCell).substring(0, 1), sp
+				.getCellValue(schoolClass).substring(0, 3));
+		for (int j = 0; j < res.size(); j++) {
+			for (int i = SpInfo.startClassRow; i < SpInfo.endClassRow; i++) {
+				if (sp.getCellValue(new Cell(i, col)) != null) {
+					if (sp.getCellValue(new Cell(i, col)).compareTo(
+							res.get(j).get(0)) == 0) {
+						Cell teacher = new Cell(i, col + 3);
+						sp.setCellValue(teacher, res.get(j).get(2));
+					}
+				}
+			}
+		}
+	}
+
+	public void fillTeachers(int sheet) throws SQLException, IOException,
+			ServiceException {
+		fillTeachers(sheet, SpInfo.firstClass, SpInfo.firstClassSubjectsCol);
+		fillTeachers(sheet, SpInfo.secondClass,
+				SpInfo.secondClassSubjectsCol);
+		fillTeachers(sheet, SpInfo.thirdClass, SpInfo.thirdClassSubjectsCol);
+		fillTeachers(sheet, SpInfo.fourthClass,
 				SpInfo.fourthClassSubjectsCol);
 	}
 }
