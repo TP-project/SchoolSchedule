@@ -19,11 +19,10 @@ public class SchoolSchedule {
 		this.sp = sp;
 	}
 
-	private ArrayList<String> getExtraSubjects(Cell schoolClass, int col) {
+	private ArrayList<String> getExtraSubjects(Cell schoolClass, int col) throws IOException, ServiceException, SQLException {
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 		ArrayList<String> extraSubjects = new ArrayList<String>();
 
-		try {
 			extraSubjects.add(sp.getCellValue(schoolClass).substring(0, 3));
 			res = table.selectEntries(sp.getCellValue(SpInfo.year), sp
 					.getCellValue(SpInfo.termCell).substring(0, 1), sp
@@ -36,32 +35,12 @@ public class SchoolSchedule {
 				}
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
 		return extraSubjects;
 
 	}
 
-	public ArrayList<ArrayList<String>> checkForExtraSubjects(int sheet) {
+	public ArrayList<ArrayList<String>> checkForExtraSubjects(int sheet) throws IOException, ServiceException, SQLException {
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
-		try {
-			Database db = new Database();
-			try {
-				db.createDatabaseConnection();
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 			sp.loadSheet(sheet);
 
 			res.add(getExtraSubjects(SpInfo.firstClass,
@@ -73,32 +52,13 @@ public class SchoolSchedule {
 			res.add(getExtraSubjects(SpInfo.fourthClass,
 					SpInfo.fourthClassSubjectsCol));
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
 		return res;
 	}
 
-	public void fillRoomNumbers(Cell schoolClass, int col, int sheet) {
+	public void fillRoomNumbers(Cell schoolClass, int col, int sheet) throws SQLException, IOException, ServiceException {
 
 		ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 
-		Database db = new Database();
-		try {
-			db.createDatabaseConnection();
-		} catch (InstantiationException e1) {
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-
-		try {
 			sp.loadSheet(sheet);
 			res = table.selectEntries(sp.getCellValue(SpInfo.year), sp
 					.getCellValue(SpInfo.termCell).substring(0, 1), sp
@@ -114,17 +74,9 @@ public class SchoolSchedule {
 					}
 				}
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-
 	}
 
-	public void fillRoomNumbers(int sheet) {
+	public void fillRoomNumbers(int sheet) throws SQLException, IOException, ServiceException {
 		fillRoomNumbers(SpInfo.firstClass, SpInfo.firstClassSubjectsCol, sheet);
 		fillRoomNumbers(SpInfo.secondClass, SpInfo.secondClassSubjectsCol,
 				sheet);
