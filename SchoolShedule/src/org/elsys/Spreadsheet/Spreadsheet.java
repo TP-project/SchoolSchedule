@@ -55,28 +55,25 @@ public class Spreadsheet {
 
 	}
 
-	public int getSheetNumber(String schoolClass, String year) {
-		try {
-			for (int i = 0; i < getAllSheets().size(); i++) {
-				loadSheet(i);
-				if (getCellValue(SpInfo.year) != null) {
-					if (getCellValue(SpInfo.year).compareTo(year) == 0) {
+	public int getSheetNumber(String schoolClass, String year , String term)
+			throws IOException, ServiceException {
+		for (int i = 0; i < getAllSheets().size(); i++) {
+			loadSheet(i);
+			if (getCellValue(SpInfo.year) != null) {
+				if (getCellValue(SpInfo.year).compareTo(year) == 0) {
+					if (getCellValue(SpInfo.termCell) != null) {
 
-						if (getCellValue(SpInfo.firstClass) != null) {
-							if (getCellValue(SpInfo.firstClass).substring(0, 2)
-									.compareTo(schoolClass) == 0) {
-								return i;
+						if (getCellValue(SpInfo.termCell).substring(0,1).compareTo(term) == 0) {
+							if (getCellValue(SpInfo.firstClass) != null) {
+								if (getCellValue(SpInfo.firstClass).substring(
+										0, 2).compareTo(schoolClass) == 0) {
+									return i;
+								}
 							}
 						}
 					}
 				}
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return -1;
 	}
