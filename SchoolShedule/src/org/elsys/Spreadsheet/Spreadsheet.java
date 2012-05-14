@@ -7,12 +7,16 @@ import com.google.gdata.data.spreadsheet.CellEntry;
 import com.google.gdata.data.spreadsheet.CellFeed;
 import com.google.gdata.data.spreadsheet.SpreadsheetEntry;
 import com.google.gdata.data.spreadsheet.SpreadsheetFeed;
+import com.google.gdata.data.spreadsheet.WorksheetEntry;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.elsys.CheckingSchedule.SpInfo;
 
 public class Spreadsheet {
 	private SpreadsheetService service;
@@ -22,11 +26,12 @@ public class Spreadsheet {
 	public Spreadsheet() {
 		this.service=new SpreadsheetService("Spreadsheet");
 		this.factory = FeedURLFactory.getDefault();
+		
 	}
 	
 	public void login(String username, String password)
 			throws AuthenticationException {
-
+		
 		service.setUserCredentials(username, password);
 	}
 	
@@ -37,7 +42,37 @@ public class Spreadsheet {
 		SpreadsheetEntry spreadsheet = feed.getEntries().get(0);
 
 		cellFeedUrl=spreadsheet.getWorksheets().get(worksheetNumber).getCellFeedUrl();
-		} 	
+	} 	
+	
+	public List<WorksheetEntry> getAllSheets() throws IOException, ServiceException {
+		SpreadsheetFeed feed = service.getFeed(
+				factory.getSpreadsheetsFeedUrl(), SpreadsheetFeed.class);
+		SpreadsheetEntry spreadsheet = feed.getEntries().get(0);
+
+		return spreadsheet.getWorksheets();
+
+	}
+	
+	public int getSheetNumber(String schoolClass) {
+		try {
+			for (int i = 0; i < getAllSheets().size(); i++) {
+				loadSheet(i);
+				if(getCellValue(SpInfo.firstClass)!=null) {
+					if(getCellValue(SpInfo.firstClass).substring(0, 2).compareTo(schoolClass)==0){
+						return i;
+					}				
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
 	
 	public void setCellValue(Cell cell,String value)
 			throws IOException, ServiceException {
