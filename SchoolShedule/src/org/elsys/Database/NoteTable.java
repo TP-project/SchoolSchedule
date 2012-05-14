@@ -94,7 +94,7 @@ public class NoteTable extends Database {
 		return teachers;
 	}
 
-	public ArrayList<Integer> selectID() throws SQLException {
+	private ArrayList<Integer> selectID() throws SQLException {
 		ArrayList<Integer> ID= new ArrayList<Integer>();
 		ResultSet results = stmt.executeQuery("select " + IDcolumn + " from " + tableName);
 		while (results.next()) {
