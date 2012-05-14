@@ -24,27 +24,29 @@ public class Spreadsheet {
 	private FeedURLFactory factory;
 
 	public Spreadsheet() {
-		this.service=new SpreadsheetService("Spreadsheet");
+		this.service = new SpreadsheetService("Spreadsheet");
 		this.factory = FeedURLFactory.getDefault();
-		
+
 	}
-	
+
 	public void login(String username, String password)
 			throws AuthenticationException {
-		
+
 		service.setUserCredentials(username, password);
 	}
-	
+
 	public void loadSheet(int worksheetNumber) throws IOException,
 			ServiceException {
 		SpreadsheetFeed feed = service.getFeed(
 				factory.getSpreadsheetsFeedUrl(), SpreadsheetFeed.class);
 		SpreadsheetEntry spreadsheet = feed.getEntries().get(0);
 
-		cellFeedUrl=spreadsheet.getWorksheets().get(worksheetNumber).getCellFeedUrl();
-	} 	
-	
-	public List<WorksheetEntry> getAllSheets() throws IOException, ServiceException {
+		cellFeedUrl = spreadsheet.getWorksheets().get(worksheetNumber)
+				.getCellFeedUrl();
+	}
+
+	public List<WorksheetEntry> getAllSheets() throws IOException,
+			ServiceException {
 		SpreadsheetFeed feed = service.getFeed(
 				factory.getSpreadsheetsFeedUrl(), SpreadsheetFeed.class);
 		SpreadsheetEntry spreadsheet = feed.getEntries().get(0);
@@ -52,15 +54,21 @@ public class Spreadsheet {
 		return spreadsheet.getWorksheets();
 
 	}
-	
-	public int getSheetNumber(String schoolClass) {
+
+	public int getSheetNumber(String schoolClass, String year) {
 		try {
 			for (int i = 0; i < getAllSheets().size(); i++) {
 				loadSheet(i);
-				if(getCellValue(SpInfo.firstClass)!=null) {
-					if(getCellValue(SpInfo.firstClass).substring(0, 2).compareTo(schoolClass)==0){
-						return i;
-					}				
+				if (getCellValue(SpInfo.year) != null) {
+					if (getCellValue(SpInfo.year).compareTo(year) == 0) {
+
+						if (getCellValue(SpInfo.firstClass) != null) {
+							if (getCellValue(SpInfo.firstClass).substring(0, 2)
+									.compareTo(schoolClass) == 0) {
+								return i;
+							}
+						}
+					}
 				}
 			}
 		} catch (IOException e) {
@@ -73,43 +81,44 @@ public class Spreadsheet {
 		return -1;
 	}
 
-	
-	public void setCellValue(Cell cell,String value)
-			throws IOException, ServiceException {
+	public void setCellValue(Cell cell, String value) throws IOException,
+			ServiceException {
 
-		CellEntry newEntry = new CellEntry(cell.getRow(),cell.getCol(),value);
-		service.insert(cellFeedUrl, newEntry);
-	}
-	
-	public void setCellErrorValue(Cell cell)
-			throws IOException, ServiceException {
-		String errorValue=getCellValue(cell)+" !!!!!!";
-		CellEntry newEntry = new CellEntry(cell.getRow(),cell.getCol(),errorValue);
-		service.insert(cellFeedUrl, newEntry);
-	}
-	
-	public void removeCellErrorValue(Cell cell)
-			throws IOException, ServiceException {
-		String value=getCellValue(cell);
-		String normalValue=value.replaceAll("!", " ");
-		CellEntry newEntry = new CellEntry(cell.getRow(),cell.getCol(),normalValue);
+		CellEntry newEntry = new CellEntry(cell.getRow(), cell.getCol(), value);
 		service.insert(cellFeedUrl, newEntry);
 	}
 
+	public void setCellErrorValue(Cell cell) throws IOException,
+			ServiceException {
+		String errorValue = getCellValue(cell) + " !!!!!!";
+		CellEntry newEntry = new CellEntry(cell.getRow(), cell.getCol(),
+				errorValue);
+		service.insert(cellFeedUrl, newEntry);
+	}
+
+	public void removeCellErrorValue(Cell cell) throws IOException,
+			ServiceException {
+		String value = getCellValue(cell);
+		String normalValue = value.replaceAll("!", " ");
+		CellEntry newEntry = new CellEntry(cell.getRow(), cell.getCol(),
+				normalValue);
+		service.insert(cellFeedUrl, newEntry);
+	}
 
 	public String getCellValue(Cell cell) throws IOException, ServiceException {
 		CellFeed feed = service.getFeed(cellFeedUrl, CellFeed.class);
 		String cellValue = null;
 		for (CellEntry entry : feed.getEntries()) {
-		     if ((entry.getCell().getRow()==cell.getRow()) && (entry.getCell().getCol()==cell.getCol())) {
-		    	 cellValue= entry.getCell().getValue();
-		     } 
-		   }
+			if ((entry.getCell().getRow() == cell.getRow())
+					&& (entry.getCell().getCol() == cell.getCol())) {
+				cellValue = entry.getCell().getValue();
+			}
+		}
 		return cellValue;
 	}
 
-
-	public ArrayList<Cell> search(int minRow, int maxRow, int minCol,int maxCol,String fullTextSearchString) throws IOException,
+	public ArrayList<Cell> search(int minRow, int maxRow, int minCol,
+			int maxCol, String fullTextSearchString) throws IOException,
 			ServiceException {
 		CellQuery query = new CellQuery(cellFeedUrl);
 		query.setMinimumRow(minRow);
@@ -119,8 +128,8 @@ public class Spreadsheet {
 		query.setFullTextQuery(fullTextSearchString);
 		CellFeed feed = service.query(query, CellFeed.class);
 		ArrayList<Cell> cells = new ArrayList<Cell>();
-		for(CellEntry cell: feed.getEntries()) {
-			Cell c=new Cell(cell.getCell().getRow(),cell.getCell().getCol());
+		for (CellEntry cell : feed.getEntries()) {
+			Cell c = new Cell(cell.getCell().getRow(), cell.getCell().getCol());
 			cells.add(c);
 		}
 		return cells;
