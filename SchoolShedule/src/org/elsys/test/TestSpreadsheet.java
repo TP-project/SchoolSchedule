@@ -18,11 +18,7 @@ public class TestSpreadsheet {
 		s.login("tuesschedule", "schoolSchedule");
 		return s;
 	}
-
-	public void tearDown() throws IOException, ServiceException {
-		Spreadsheet s = fixture();
-		s.setCellValue(new Cell(1,1),"");
-	}
+	
 	@Test
 	public void testCorrectLogin() {
 		try {
@@ -142,5 +138,6 @@ public class TestSpreadsheet {
 		Cell c = new Cell(1,1);
 		s.setCellValue(c,"test");
 		assertTrue(s.search(1, 1, 1, 1, "test").size()==1);
+		s.setCellValue(c,"");
 	}	
 }
