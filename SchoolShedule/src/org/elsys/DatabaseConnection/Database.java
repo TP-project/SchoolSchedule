@@ -19,4 +19,11 @@ public class Database {
 		Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 		conn = DriverManager.getConnection(dbURL);
 	}
+
+	public void createDatabaseConnection(String dbName) throws InstantiationException,
+			IllegalAccessException, ClassNotFoundException, SQLException {
+		dbURL = "jdbc:derby:/home/kosyo/" + dbName + ";create=true";
+		Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+		conn = DriverManager.getConnection(dbURL);
+	}
 }
