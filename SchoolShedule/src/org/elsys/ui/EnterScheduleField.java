@@ -93,7 +93,7 @@ public class EnterScheduleField {
 						|| teacherDD.getText().equals("")
 						|| subDD.getText().equals("")) {
 					new Message(
-							"Само полето стая може да бъде записано. Моля попълнете нужната информация.");
+							"Само полето стая може да бъде празно. Моля попълнете нужната информация.");
 				} else {
 					try {
 
@@ -119,7 +119,6 @@ public class EnterScheduleField {
 								"Предметът и учителят трябва да бъде най-много 30 символа, а кабинетът - 5.");
 					} catch (SQLException e) {
 						new Message("Възникна неочаквана грешка.");
-					e.printStackTrace();
 					}
 					shell.pack();
 				}
