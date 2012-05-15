@@ -86,7 +86,7 @@ public class Checking {
 					s2 += list.get(i).get(l);
 				}
 				if (!s2.equals(""))
-					new Message(s1 + s2);
+					new Message(s1+" има въведени повечв часове по " + s2);
 			}
 		} catch (Exception e) {
 			new Message("Възникна неочаквана грешка!");
