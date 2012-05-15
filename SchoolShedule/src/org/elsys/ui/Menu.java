@@ -68,7 +68,7 @@ public class Menu {
 	
 	private void checking() {
 		Button ch = new Button(shell, SWT.PUSH);
-		ch.setText("Проверка на въвевдането на програмата");
+		ch.setText("Проверка на въвеждането на програмата");
 		ch.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				new Checking ();
